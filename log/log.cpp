@@ -6,7 +6,7 @@
 #include <QSettings>
 #include <QApplication>
 
-Log::Log() : QObject(Q_NULLPTR)
+Log::Log() : QObject(NULL)
 {
     m_iWriteLevel = 0;
     m_sLogPath = QApplication::applicationDirPath() + "/Log/";
@@ -76,7 +76,7 @@ void Log::writeFile()
         log.swap(m_qmLogMsg);
     }
 
-    for (auto it = log.begin(); it != log.end(); ++it)
+	for (QMap<QString, QList<QString> >::iterator it = log.begin(); it != log.end(); ++it)
     {
         QString fileName = it.key();
         writeLogFile(fileName, it.value());
@@ -259,7 +259,7 @@ QString Log::getLogPath()
 bool Log::init(const QString& prefab)
 {
     Log::getInstance().logPrefab(prefab.toLocal8Bit().data());
-    qInstallMessageHandler(outputMessage);
+    //qInstallMessageHandler(outputMessage);
 
     return true;
 }
@@ -382,27 +382,27 @@ void logError(const char* msg, ...)
     logError(sLogMsg);
 }
 
-void outputMessage(QtMsgType type, const QMessageLogContext& context, const QString& msg)
-{
-    Q_UNUSED(context)
-
-    switch (type)
-    {
-    case QtDebugMsg:
-        Log::WriteLogLevel(DEBUG, msg);
-        break;
-    case QtInfoMsg:
-        Log::WriteLogLevel(INFO, msg);
-        break;
-    case QtWarningMsg:
-        Log::WriteLogLevel(WARN, msg);
-        break;
-    case QtCriticalMsg:
-    case QtFatalMsg:
-        Log::WriteLogLevel(MYERROR, msg);
-        break;
-    default:
-        Log::WriteLogLevel(TRACE, msg);
-        break;
-    }
-}
+//void outputMessage(QtMsgType type, const QMessageLogContext& context, const QString& msg)
+//{
+//    Q_UNUSED(context)
+//
+//    switch (type)
+//    {
+//    case QtDebugMsg:
+//        Log::WriteLogLevel(DEBUG, msg);
+//        break;
+//    case QtInfoMsg:
+//        Log::WriteLogLevel(INFO, msg);
+//        break;
+//    case QtWarningMsg:
+//        Log::WriteLogLevel(WARN, msg);
+//        break;
+//    case QtCriticalMsg:
+//    case QtFatalMsg:
+//        Log::WriteLogLevel(MYERROR, msg);
+//        break;
+//    default:
+//        Log::WriteLogLevel(TRACE, msg);
+//        break;
+//    }
+//}

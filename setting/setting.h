@@ -2,7 +2,7 @@
 #define SETTING_H
 
 #include <QObject>
-//#include <QWidget>
+#include <QStringList>
 #include <QMap>
 #include <QVariant>
 #include <QSettings>

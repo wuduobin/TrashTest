@@ -21,7 +21,7 @@ void Setting::init()
     QDir dir;
     QString path = "./Config/";
     if (false == dir.exists(path)) dir.mkdir(path);
-    std::unique_ptr<QFile> file = std::make_unique<QFile>();
+    QFile* file = new QFile;
     bool isExists = true;
     if (false == file->exists(mCfgFile))
     {
@@ -258,7 +258,7 @@ QStringList Setting::getSectionsKey(const QString& section) const
     QRegExp regExp(sectionKey, Qt::CaseInsensitive);
     QStringList list;
 
-    for (auto i = mKeyValue.begin(); i != mKeyValue.end(); ++i)
+	for (QMap<QString, QVariant>::const_iterator i = mKeyValue.begin(); i != mKeyValue.end(); ++i)
         if (0 == regExp.indexIn(i.key()))
             list << i.key();
 
@@ -271,7 +271,7 @@ QStringList Setting::getSectionsValue(const QString& section) const
     QRegExp regExp(sectionKey, Qt::CaseInsensitive);
     QStringList list;
 
-    for (auto i = mKeyValue.begin(); i != mKeyValue.end(); ++i)
+    for (QMap<QString, QVariant>::const_iterator i = mKeyValue.begin(); i != mKeyValue.end(); ++i)
         if (0 == regExp.indexIn(i.key()))
             list << i.value().toString();
 
@@ -313,7 +313,7 @@ void Setting::delSection(const QString& section)
 
     QString sectionLower = section.toLower();
     QStringList delKey, delLowerKey;
-    for (auto it = mSensitiveKey.begin(); it != mSensitiveKey.end(); ++it)
+	for (QMap<QString, QString>::iterator it = mSensitiveKey.begin(); it != mSensitiveKey.end(); ++it)
     {
         if (it.key().startsWith(sectionLower + "/"))
         {
@@ -323,9 +323,9 @@ void Setting::delSection(const QString& section)
     }
 
     mSections.removeOne(section);
-    foreach(auto key, delKey)
+    foreach(QString key, delKey)
         mCommentKey.remove(key);
-    foreach(auto key, delLowerKey)
+    foreach(QString key, delLowerKey)
     {
         mKeyValue.remove(key);
         mSensitiveKey.remove(key);
@@ -355,7 +355,7 @@ int Setting::getSectionCfg(QString section, QMap<QString, QString>& cfgData)
 {
     int cnt = 0;
     QString sectionKey = section.toLower() + "/";
-    for (auto it = mKeyValue.begin(); it != mKeyValue.end(); ++it)
+    for (QMap<QString, QVariant>::iterator it = mKeyValue.begin(); it != mKeyValue.end(); ++it)
     {
         if (it.key().startsWith(sectionKey))
         {

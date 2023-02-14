@@ -19,19 +19,19 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("utf-8"));
-    std::unique_ptr<QTranslator> translator = std::make_unique<QTranslator>();
-    translator->load(":/res/languages/qt_zh_CN.qm") && app.installTranslator(translator.get());
+    QTranslator translator;
+    if (translator.load(":/res/languages/qt_zh_CN.qm")) app.installTranslator(&translator);
 
     QSharedMemory singleApp("QML");
     if (singleApp.attach())
     {
-        QMessageBox::warning(Q_NULLPTR, QStringLiteral("警告"), QStringLiteral("客户端程序不允许同时打开两份!"));
+        QMessageBox::warning(NULL, QString::fromUtf8("警告"), QString::fromUtf8("客户端程序不允许同时打开两份!"));
         return 0;
     }
     singleApp.create(1);
 
     Log::init("温度补偿");
-    Log::info(QApplication::applicationDirPath() + QStringLiteral(" version:") + QApplication::applicationVersion());
+    Log::info(QApplication::applicationDirPath() + QString::fromUtf8(" version:") + QApplication::applicationVersion());
 
     MainWindow m;
     m.show();

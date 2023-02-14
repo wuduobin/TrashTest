@@ -8,35 +8,45 @@
 namespace Ui {
 class MainWindow;
 }
-class QTableWidget;
 
-class MainWindow final : public QWidget
+class QWidget;
+class QTableWidget;
+class QPushButton;
+
+class MainWindow : public QWidget
 {
     Q_OBJECT
-    void initTable(std::unique_ptr<QTableWidget>& table,
-                   std::unique_ptr<QPushButton>& btn,
-                   int row, int column, const QString& btnText);
+    void initTable(QTableWidget& table, QPushButton& btn, int row, int column, const QString& btnText);
 
 public:
-    explicit MainWindow(QWidget *parent = Q_NULLPTR);
-    ~MainWindow() = default;
+    explicit MainWindow(QWidget *parent = NULL);
+    ~MainWindow();
+
+private slots:
+	void on_mBtn1_clicked();
+	void on_mBtn2_clicked();
+	void on_mBtn3_clicked();
+	void on_mBtn4_clicked();
+	void on_mBtn5_clicked();
+	void on_mBtn6_clicked();
+	void on_mBtn7_clicked();
 
 private:
-    std::shared_ptr<Ui::MainWindow> ui;
-    std::unique_ptr<QTableWidget> mTable1 = std::make_unique<QTableWidget>();
-    std::unique_ptr<QTableWidget> mTable2 = std::make_unique<QTableWidget>();
-    std::unique_ptr<QTableWidget> mTable3 = std::make_unique<QTableWidget>();
-    std::unique_ptr<QTableWidget> mTable4 = std::make_unique<QTableWidget>();
-    std::unique_ptr<QTableWidget> mTable5 = std::make_unique<QTableWidget>();
-    std::unique_ptr<QTableWidget> mTable6 = std::make_unique<QTableWidget>();
-    std::unique_ptr<QTableWidget> mTable7 = std::make_unique<QTableWidget>();
-    std::unique_ptr<QPushButton> mBtn1 = std::make_unique<QPushButton>();
-    std::unique_ptr<QPushButton> mBtn2 = std::make_unique<QPushButton>();
-    std::unique_ptr<QPushButton> mBtn3 = std::make_unique<QPushButton>();
-    std::unique_ptr<QPushButton> mBtn4 = std::make_unique<QPushButton>();
-    std::unique_ptr<QPushButton> mBtn5 = std::make_unique<QPushButton>();
-    std::unique_ptr<QPushButton> mBtn6 = std::make_unique<QPushButton>();
-    std::unique_ptr<QPushButton> mBtn7 = std::make_unique<QPushButton>();
+    Ui::MainWindow* ui;
+    QTableWidget mTable1;
+    QTableWidget mTable2;
+    QTableWidget mTable3;
+    QTableWidget mTable4;
+    QTableWidget mTable5;
+    QTableWidget mTable6;
+    QTableWidget mTable7;
+    QPushButton mBtn1;
+    QPushButton mBtn2;
+    QPushButton mBtn3;
+    QPushButton mBtn4;
+    QPushButton mBtn5;
+    QPushButton mBtn6;
+    QPushButton mBtn7;
 };
 
 #endif // MAINWINDOW_H

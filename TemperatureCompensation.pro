@@ -1,10 +1,12 @@
-QT += core gui
+QT += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = TemperatureCompensation
 RC_ICONS =
 CONFIG += c++20 embed_translations
+
+QMAKE_CXXFLAGS += -std=c++0x
 
 windows{
     VERSION = 0.0.0.0

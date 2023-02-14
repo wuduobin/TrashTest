@@ -87,6 +87,6 @@ extern void logWarn(const QString &msg);
 extern void logWarn(const char* msg,...);
 extern void logError(const QString &msg);
 extern void logError(const char* msg,...);
-extern void outputMessage(QtMsgType type, const QMessageLogContext &context, const QString &msg);
+//extern void outputMessage(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 
 #endif // LOG_H

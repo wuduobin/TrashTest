@@ -6,8 +6,6 @@ TARGET = TemperatureCompensation
 RC_ICONS =
 CONFIG += c++20 embed_translations
 
-QMAKE_CXXFLAGS += -std=c++0x
-
 windows{
     VERSION = 0.0.0.0
     QMAKE_TARGET_DESCRIPTION = "Temperature Compensation"

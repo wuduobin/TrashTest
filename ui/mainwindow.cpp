@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "qheaderview.h"
+#include <QHeaderView>
 #include <QSpacerItem>
 #include <QDebug>
 
@@ -10,17 +10,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowState(Qt::WindowMaximized);
+    //setWindowState(Qt::WindowMaximized);
     ui->listWidget->setResizeMode(QListView::Adjust);
     ui->listWidget->setAutoScroll(true);
 
-    initTable(mTable1, mBtn1, 5, 18, QString::fromUtf8("原始电压")); // DATADB
-    initTable(mTable2, mBtn2, 5, 18, QString::fromUtf8("浓度"));
-    initTable(mTable3, mBtn3, 5, 18, QString::fromUtf8("温度补偿")); // GASDB
-    initTable(mTable4, mBtn4, 5, 18, QString::fromUtf8("二次拟合"));
-    initTable(mTable5, mBtn5, 5, 18, QString::fromUtf8("漂移处理"));
-	initTable(mTable6, mBtn6, 5, 18, QString::fromUtf8("二点波动"));  //二点波动率
-    initTable(mTable7, mBtn7, 5, 38, QString::fromUtf8("平滑处理")); //GL1500
+	initTable(mTable1, mBtn1, 5, 18, QString::fromLocal8Bit("原始电压")); // DATADB
+	initTable(mTable2, mBtn2, 5, 18, QString::fromLocal8Bit("浓度"));
+    initTable(mTable3, mBtn3, 5, 18, QString::fromLocal8Bit("温度补偿")); // GASDB
+    initTable(mTable4, mBtn4, 5, 18, QString::fromLocal8Bit("二次拟合"));
+	initTable(mTable5, mBtn5, 5, 18, QString::fromLocal8Bit("漂移处理"));
+	initTable(mTable6, mBtn6, 5, 18, QString::fromLocal8Bit("二点波动率")); 
+    initTable(mTable7, mBtn7, 5, 38, QString::fromLocal8Bit("平滑处理")); //GL1500
 
 	connect(&mBtn1, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
 	connect(&mBtn2, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
@@ -39,7 +39,6 @@ MainWindow::~MainWindow()
 void MainWindow::initTable(QTableWidget& table, QPushButton& btn, int row, int column, const QString& btnText)
 {
     table.setRowCount(row);
-    table.setColumnCount(column);
     table.verticalHeader()->setDefaultSectionSize(40);
     table.setFocusPolicy(Qt::NoFocus);
 
@@ -47,6 +46,31 @@ void MainWindow::initTable(QTableWidget& table, QPushButton& btn, int row, int c
     font.setBold(true); //表头字体加粗
     font.setPointSize(10); //表头字体大小
     table.horizontalHeader()->setFont(font);
+
+	table.setColumnCount(column);
+	if (&table != &mTable7)
+    {
+        table.setHorizontalHeaderLabels(QStringList() << QString::fromLocal8Bit("时间") << QString::fromLocal8Bit("A\nCO2浓度")
+			<< QString::fromLocal8Bit("B\nN2O浓度") << QString::fromLocal8Bit("C\nSF6浓度") 
+			<< QString::fromLocal8Bit("D\nCH4浓度") << QString::fromLocal8Bit("E\n待定气体") 
+			<< QString::fromLocal8Bit("W\n水浓度") << QString::fromLocal8Bit("F\n待定气体") 
+			<< QString::fromLocal8Bit("SENSOR1\n柜外温度") << QString::fromLocal8Bit("SENSOR2\n柜内温度") 
+			<< QString::fromLocal8Bit("SENSOR3\n气罐温度") << QString::fromLocal8Bit("TEMPERATURE\n温度") 
+			<< QString::fromLocal8Bit("PRESSURE\n压力") << QString::fromLocal8Bit("ChamberTemperature\n光声腔温度") 
+			<< QString::fromLocal8Bit("IRTemperature\n光源温度") << QString::fromLocal8Bit("AirTemperature\n空气温度") 
+			<< QString::fromLocal8Bit("ChamberPress\n光声腔压力") << QString::fromLocal8Bit("WashAirPress\n洗气压力"));				
+	}
+    else
+    {
+		table.setHorizontalHeaderLabels(QStringList() << QString::fromLocal8Bit("时间") << QString::fromLocal8Bit("A\nCO2浓度") 
+			<< QString::fromLocal8Bit("B\nN2O浓度") << QString::fromLocal8Bit("C\nSF6浓度") << QString::fromLocal8Bit("D\nCH4浓度")
+            << QString::fromLocal8Bit("E\n待定气体") << QString::fromLocal8Bit("W\n水浓度") << QString::fromLocal8Bit("F\n待定气体") 
+			<< QString::fromLocal8Bit("SENSOR1\n柜外温度") << QString::fromLocal8Bit("SENSOR2\n柜内温度") 
+			<< QString::fromLocal8Bit("SENSOR3\n气罐温度") << QString::fromLocal8Bit("TEMPERATURE\n温度") 
+			<< QString::fromLocal8Bit("PRESSURE\n压力") << QString::fromLocal8Bit("SendFlag\n发送标志") 
+			<< "A_1" << "B_1" << "C_1" << "D_1" << "E_1" << "F_1" << "W_1" << "SENSOR1_1"<< "SENSOR2_1" << "SENSOR3_1" << "TEMPERATURE_1" << "PRESSURE_1" 
+			<< "A_2" << "B_2" << "C_2" << "D_2" << "E_2" << "E_2" << "W_2" << "SENSOR1_2" << "SENSOR2_2" << "SENSOR3_2" << "TEMPERATURE_2" << "PRESSURE_2");
+    }
 
     for (int i = 0; i < column; ++i)
     {
@@ -68,24 +92,7 @@ void MainWindow::initTable(QTableWidget& table, QPushButton& btn, int row, int c
     }
     table.horizontalHeader()->setDefaultAlignment(Qt::AlignCenter);
     table.horizontalHeader()->setHighlightSections(false);
-
-    /*if (&table != &mTable7)
-    {
-        table.setHorizontalHeaderLabels(QStringList() << "时间" << "A\nCO2浓度" << "B\nN2O浓度" << "C\nSF6浓度" << "D\nCH4浓度"
-            << "E\n待定气体" << "W\n水浓度" << "F\n待定气体" << "SENSOR1\n柜外温度" << "SENSOR2\n柜内温度" << "SENSOR3\n气罐温度"
-            << "TEMPERATURE\n温度" << "PRESSURE\n压力" << "ChamberTemperature\n光声腔温度" << "IRTemperature\n光源温度"
-            << "AirTemperature\n空气温度" << "ChamberPress\n光声腔压力" << "WashAirPress\n洗气压力");
-    }
-    else
-    {
-		table.setHorizontalHeaderLabels(QStringList() << "时间" << "A\nCO2浓度" << "B\nN2O浓度" << "C\nSF6浓度" << "D\nCH4浓度"
-            << "E\n待定气体" << "W\n水浓度" << "F\n待定气体" << "SENSOR1\n柜外温度" << "SENSOR2\n柜内温度" << "SENSOR3\n气罐温度"
-            << "TEMPERATURE\n温度" << "PRESSURE\n压力" << "SendFlag\n发送标志" << "A_1" << "B_1" << "C_1" << "D_1" << "E_1"
-            << "F_1" << "W_1" << "SENSOR1_1"<< "SENSOR2_1" << "SENSOR3_1" << "TEMPERATURE_1" << "PRESSURE_1" << "A_2" << "B_2"
-            << "C_2" << "D_2" << "E_2" << "E_2" << "W_2" << "SENSOR1_2" << "SENSOR2_2" << "SENSOR3_2" << "TEMPERATURE_2" << "PRESSURE_2");
-    }*/
-
-    table.setStyleSheet( "QHeaderView::section {background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,\
+    table.setStyleSheet("QHeaderView::section {background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,\
     stop:1 #f2f2f2);color:rgba(0, 0, 0, 0.85);border-width:0;border-style:outset;height:60px;border-top:0px; \
     border-left:0px;border-right:1px solid #cccccc;border-bottom: 0px;}");
 

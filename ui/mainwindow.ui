@@ -218,13 +218,13 @@
        </property>
        <property name="styleSheet">
         <string notr="true">QListWidget{
-border-width:0;
-border-radius:0px;
-border-style:outset;
-background:transparent;
-color:rgba(102, 102, 102, 1);
-font-size: 14px;
-background-color:rgb(249, 249, 249);
+	border-width:0;
+	border-radius:0px;
+	border-style:outset;
+	background:transparent;
+	color:rgba(102, 102, 102, 1);
+	font-size: 14px;
+	background-color:rgb(249, 249, 249);
 }
 
 QListWidget::Item
@@ -232,8 +232,8 @@ QListWidget::Item
 	border:0px;	
 	background-color:rgb(249, 249, 249);
 	color: rgba(102, 102, 102, 1);
-border-bottom:1px solid rgba(222, 222, 222, 1);
-padding-bottom:1px;
+	border-bottom:1px solid rgba(222, 222, 222, 1);
+	padding-bottom:1px;
 }
 
 QListWidget::Item:hover
@@ -252,7 +252,7 @@ QListWidget::item:selected
 
 QScrollBar:vertical
 {/*设置垂直滚动的全局属性值*/
-    width:100px;
+    width:20px;
     background:rgba(204, 204, 204, 1);
     margin:0px,0px,0px,0px;
     padding-top:0px;

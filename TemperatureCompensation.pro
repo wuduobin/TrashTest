@@ -26,6 +26,7 @@ RESOURCES += res.qrc
 include(./log/log.pri)
 include(./setting/setting.pri)
 include(./ui/ui.pri)
+include(./algorithm/algorithm.pri)
 
 CONFIG(debug, debug|release){
     DESTDIR = ../bin_debug

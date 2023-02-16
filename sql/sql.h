@@ -6,12 +6,13 @@
 
 class SQL
 {
+	bool connect(QString name = "DATADB");
+
 public:
 	explicit SQL();
 	~SQL();
 	static SQL Instance();
-	bool connect(QString name = "DATADB");
-
+	QStringList select();
 
 private:
 	QSqlDatabase mDb;

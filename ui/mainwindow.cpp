@@ -5,6 +5,9 @@
 #include <QSpacerItem>
 #include <QDebug>
 
+#include "sql/sql.h"
+#include "log/log.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow)
@@ -29,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(&mBtn5, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
 	connect(&mBtn6, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
 	connect(&mBtn7, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
+
+	SQL::Instance().select();
 }
 
 MainWindow::~MainWindow()

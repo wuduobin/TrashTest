@@ -13,7 +13,6 @@
 
 #include "log/log.h"
 #include "ui/mainwindow.h"
-#include "sql/sql.h"
 
 int main(int argc, char *argv[])
 {
@@ -38,8 +37,6 @@ int main(int argc, char *argv[])
 
     MainWindow m;
     m.show();
-
-	SQL::Instance().connect();
 
     return app.exec();
 }

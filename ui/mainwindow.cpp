@@ -22,13 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
 	initTable(mTable6, mBtn6, 5, 18, QString::fromLocal8Bit("二点波动率")); 
     initTable(mTable7, mBtn7, 5, 38, QString::fromLocal8Bit("平滑处理")); //GL1500
 
-	connect(&mBtn1, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
-	connect(&mBtn2, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
-	connect(&mBtn3, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
-	connect(&mBtn4, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
-	connect(&mBtn5, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
-	connect(&mBtn6, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
-	connect(&mBtn7, SIGNAL(clicked()), SLOT(on_mBtn1_clicked()));
+	connect(&mBtn1, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
+	connect(&mBtn2, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
+	connect(&mBtn3, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
+	connect(&mBtn4, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
+	connect(&mBtn5, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
+	connect(&mBtn6, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
+	connect(&mBtn7, SIGNAL(clicked(bool)), this, SLOT(on_mBtn1_clicked()));
 }
 
 MainWindow::~MainWindow()

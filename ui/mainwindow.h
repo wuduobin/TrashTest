@@ -9,10 +9,6 @@ namespace Ui {
 class MainWindow;
 }
 
-class QWidget;
-class QTableWidget;
-class QPushButton;
-
 class MainWindow : public QWidget
 {
     Q_OBJECT
@@ -22,7 +18,7 @@ public:
     explicit MainWindow(QWidget *parent = NULL);
     ~MainWindow();
 
-private slots:
+public slots:
 	void on_mBtn1_clicked();
 	void on_mBtn2_clicked();
 	void on_mBtn3_clicked();

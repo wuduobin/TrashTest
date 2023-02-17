@@ -5,10 +5,7 @@
 #include <QSqlError>
 #include <QSqlRecord>
 #include <QVariant>
-
-#ifdef WIN32
-#include <Windows.h>
-#endif
+#include <QFileDialog>
 
 #include "log/log.h"
 #include "ui/mainwindow.h"
@@ -46,7 +43,8 @@ bool SQL::connect(QString name)
 {
 	mDb = QSqlDatabase::addDatabase("QODBC", name);
 	// 连接.mdb文件，注意空格，数据库用绝对路径 TODO路径获取改为打开系统文件夹选择相应的文件
-	QString path = QString("DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};FIL={MS Access};DBQ=F:/bin_debug/DATADB.mdb");
+	QString path = QFileDialog::getOpenFileName(NULL, "Select File", "./", "ACCESS File(*.mdb)");
+	path = QString("DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};FIL={MS Access};DBQ=") + ("" == path ? "F:/bin_debug/DATADB.mdb" : path);
 	mDb.setDatabaseName(path);
 	bool ret = mDb.open();
 	if (false == ret) 
@@ -108,8 +106,10 @@ bool SQL::selectTable1()
 		fieldName.append(record.fieldName(j)).append("  ");
 	}
 	Log::info(fieldName);
+	int tmp = 0;
 	while (query.next())
 	{	
+		if (tmp++ > 50) break;
 		QString column; // 一开始用QStringList,但qt4定义的信号参数为QStringList编译不通过
 		QVariant var;
 

@@ -18,6 +18,8 @@ public:
     explicit MainWindow(QWidget *parent = NULL);
     ~MainWindow();
 
+	void insertTable1(QString column);
+
 public slots:
 	void on_mBtn1_clicked();
 	void on_mBtn2_clicked();

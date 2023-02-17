@@ -12,7 +12,7 @@ public:
 	explicit SQL();
 	~SQL();
 	static SQL Instance();
-	QStringList select();
+	bool selectTable1();
 
 private:
 	QSqlDatabase mDb;

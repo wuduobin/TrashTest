@@ -14,6 +14,8 @@
 #include "log/log.h"
 #include "ui/mainwindow.h"
 
+MainWindow* gMainWindow;
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -35,8 +37,16 @@ int main(int argc, char *argv[])
 	Log::init("TC");
     Log::info(QApplication::applicationDirPath() + QString::fromLocal8Bit(" version:") + QApplication::applicationVersion());
 
-    MainWindow m;
-    m.show();
+	gMainWindow = new MainWindow;
+    gMainWindow->show();
 
-    return app.exec();
+	int ret = app.exec();
+
+	if (gMainWindow)
+	{
+		delete gMainWindow;
+		gMainWindow = NULL;;
+	}
+
+    return ret;
 }

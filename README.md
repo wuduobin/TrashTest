@@ -1,5 +1,5 @@
 > 本软件是windows 32位的程序,需要兼容XP系统
-# ClientHeZhiTest
+# 此项目已废弃
 - IDE：visual studio 2008 + QT4.8.0 + qt-vs-addin-1.1.11
 - vs2008不支持C++11
 - QT4用widget，qml是QT5才支持

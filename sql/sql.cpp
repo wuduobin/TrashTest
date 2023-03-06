@@ -10,6 +10,8 @@
 #include "log/log.h"
 #include "ui/mainwindow.h"
 
+#define MYDEBUG
+
 extern MainWindow* gMainWindow;
 
 SQL::SQL()
@@ -146,7 +148,7 @@ bool SQL::selectTable1()
 		}
 
 		// 打算用QT的信号-槽机制，发射一个信号，然后在MainWindow类里执行对应的槽函数
-		// 但是qt4的原因，老是走不到对应的槽函数，因此更换为了全局变量gMainWidow
+        // 但是增加了单例Instance()，老是走不到对应的槽函数，因此更换为了全局变量gMainWidow
 		gMainWindow->insertTable1(column); // 定义局部变量column便于调试查看值
 	}
 
